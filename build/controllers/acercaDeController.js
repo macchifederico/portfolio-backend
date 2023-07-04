@@ -1,39 +1,40 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.acercaDeController = void 0;
 const AcercaDe_1 = require("../models/AcercaDe");
 class AcercaDeController {
-    getAcerca(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            try {
-                const acercaDe = yield AcercaDe_1.AcercaDe.findAll({ _id: id });
-            }
-            catch (error) {
-                console.log(error);
-            }
-        });
+    async getAcerca(req, res) {
+        const { id } = req.params;
+        try {
+            const acercaDe = await AcercaDe_1.AcercaDe.findOne({
+                where: {
+                    id: id
+                }
+            });
+            return res.json(acercaDe);
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
-    save(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-        });
+    async create(req, res) {
+        const { id_persona, presentProf } = req.body;
+        try {
+            await AcercaDe_1.AcercaDe.create({
+                id_persona: id_persona,
+                presentProf: presentProf
+            });
+            return res.json({
+                message: 'Acerca de creado' + ` para id_persona nro ${id_persona}`
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
-    update(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-        });
+    async update(req, res) {
     }
-    delete(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-        });
+    async delete(req, res) {
     }
 }
 exports.acercaDeController = new AcercaDeController();

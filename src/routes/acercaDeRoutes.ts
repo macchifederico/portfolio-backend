@@ -12,7 +12,7 @@ class AcercaDeRoutes {
 
     config(): void{
         this.router.get('/:id', tokenService.verifyToken ,acercaDeController.getAcerca)
-        this.router.post('/', tokenService.verifyToken ,acercaDeController.save)
+        this.router.post('/', tokenService.verifyToken ,acercaDeController.create)
         this.router.put('/:id', tokenService.verifyToken ,acercaDeController.update)
         this.router.delete('/:id', tokenService.verifyToken ,acercaDeController.delete)
     }

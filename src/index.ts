@@ -40,7 +40,7 @@ class Server {
 
     routes(): void{
         this.app.use('/auth', authRoutes);
-        this.app.use('/', acercaDeRoutes);
+        this.app.use('/acercade', acercaDeRoutes);
     }
 
     start(): void{

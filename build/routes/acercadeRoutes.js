@@ -13,7 +13,7 @@ class AcercaDeRoutes {
     }
     config() {
         this.router.get('/:id', tokenService_1.default.verifyToken, acercaDeController_1.default.getAcerca);
-        this.router.post('/', tokenService_1.default.verifyToken, acercaDeController_1.default.save);
+        this.router.post('/', tokenService_1.default.verifyToken, acercaDeController_1.default.create);
         this.router.put('/:id', tokenService_1.default.verifyToken, acercaDeController_1.default.update);
         this.router.delete('/:id', tokenService_1.default.verifyToken, acercaDeController_1.default.delete);
     }

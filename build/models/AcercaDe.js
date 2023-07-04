@@ -12,6 +12,9 @@ exports.AcercaDe = database_1.default.define('acercade', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: sequelize_1.DataTypes.INTEGER,
+    },
     presentProf: {
         type: sequelize_1.DataTypes.STRING
     }
