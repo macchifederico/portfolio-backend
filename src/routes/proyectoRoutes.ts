@@ -1,5 +1,7 @@
 import { Router } from "express";
-//agregar controlador
+import proyectoController from "../controllers/proyectoController";
+import tokenService from "../services/tokenService";
+
 class ProyectoRoutes {
 
     public router: Router = Router();
@@ -9,12 +11,13 @@ class ProyectoRoutes {
     }
 
     config(): void{
-        this.router.get('/', ) // proyectoController.get
-        this.router.post('/', ) // proyectoController.save
-        this.router.put('/:id', ) // proyectoController.update
-        this.router.delete('/:id', ) // proyectoController.delete
+        this.router.get('/', tokenService.verifyToken, proyectoController.obtenerProyectos);
+        this.router.post('/', tokenService.verifyToken, proyectoController.crearProyecto);
+        this.router.post('/', tokenService.verifyToken, proyectoController.getUnProyecto);
+        this.router.put('/', tokenService.verifyToken, proyectoController.actualizarProyecto);
+        this.router.delete('/', tokenService.verifyToken, proyectoController.deleteProyecto);
     }
 }
 
 const proyectoRoutes = new ProyectoRoutes();
-export default proyectoRoutes;
+export default proyectoRoutes.router;

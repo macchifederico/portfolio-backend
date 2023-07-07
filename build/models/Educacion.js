@@ -12,6 +12,9 @@ exports.Educacion = database_1.default.define('educacion', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: sequelize_1.DataTypes.INTEGER,
+    },
     titulo: {
         type: sequelize_1.DataTypes.STRING,
     },
@@ -23,7 +26,11 @@ exports.Educacion = database_1.default.define('educacion', {
     },
     fechaFin: {
         type: sequelize_1.DataTypes.DATE,
+    },
+    en_proceso: {
+        type: sequelize_1.DataTypes.BOOLEAN,
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    tableName: "educacion"
 });

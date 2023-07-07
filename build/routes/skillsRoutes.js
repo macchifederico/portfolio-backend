@@ -15,4 +15,4 @@ class SkillsRoutes {
     }
 }
 const skillsRoutes = new SkillsRoutes();
-exports.default = skillsRoutes;
+exports.default = skillsRoutes.router;

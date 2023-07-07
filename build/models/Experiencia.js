@@ -12,6 +12,9 @@ exports.Experiencia = database_1.default.define('experiencia', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: sequelize_1.DataTypes.INTEGER,
+    },
     nombreE: {
         type: sequelize_1.DataTypes.STRING,
     },
@@ -20,6 +23,9 @@ exports.Experiencia = database_1.default.define('experiencia', {
     },
     descripcionE: {
         type: sequelize_1.DataTypes.STRING,
+    },
+    en_proceso: {
+        type: sequelize_1.DataTypes.BOOLEAN,
     }
 }, {
     timestamps: false

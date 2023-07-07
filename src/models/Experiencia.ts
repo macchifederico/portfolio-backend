@@ -7,6 +7,9 @@ export const Experiencia = sequelize.define('experiencia', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: DataTypes.INTEGER,
+    },
     nombreE: {
         type: DataTypes.STRING,
     },
@@ -15,6 +18,9 @@ export const Experiencia = sequelize.define('experiencia', {
     },
     descripcionE: {
         type: DataTypes.STRING,
+    },
+    en_proceso: {
+        type: DataTypes.BOOLEAN,
     }
 },{
     timestamps: false

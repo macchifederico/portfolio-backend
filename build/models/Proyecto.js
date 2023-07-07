@@ -12,6 +12,9 @@ exports.Proyecto = database_1.default.define('proyecto', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: sequelize_1.DataTypes.INTEGER,
+    },
     nombreProyecto: {
         type: sequelize_1.DataTypes.STRING,
     },

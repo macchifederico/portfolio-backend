@@ -18,6 +18,11 @@ require('dotenv').config();
 // Routes
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const acercaDeRoutes_1 = __importDefault(require("./routes/acercaDeRoutes"));
+const educacionRoutes_1 = __importDefault(require("./routes/educacionRoutes"));
+const experienciaRoutes_1 = __importDefault(require("./routes/experienciaRoutes"));
+const personaRoutes_1 = __importDefault(require("./routes/personaRoutes"));
+const proyectoRoutes_1 = __importDefault(require("./routes/proyectoRoutes"));
+const skillsRoutes_1 = __importDefault(require("./routes/skillsRoutes"));
 // Server
 class Server {
     constructor() {
@@ -33,8 +38,13 @@ class Server {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     routes() {
-        this.app.use('/auth', authRoutes_1.default);
-        this.app.use('/acercade', acercaDeRoutes_1.default);
+        this.app.use('/api/auth', authRoutes_1.default);
+        this.app.use('/api/persona', personaRoutes_1.default);
+        this.app.use('/api/acercade', acercaDeRoutes_1.default);
+        this.app.use('/api/educacion', educacionRoutes_1.default);
+        this.app.use('/api/experiencia', experienciaRoutes_1.default);
+        this.app.use('/api/proyecto', proyectoRoutes_1.default);
+        this.app.use('/api/skills', skillsRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
@@ -43,7 +53,7 @@ class Server {
     }
     async startDB() {
         try {
-            await database_1.default.sync({ force: false, alter: false });
+            await database_1.default.sync({ force: false, alter: true });
             console.log('Conección establecida correctamente.');
         }
         catch (error) {

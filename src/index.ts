@@ -17,6 +17,11 @@ require('dotenv').config();
 // Routes
 import authRoutes from './routes/authRoutes';
 import acercaDeRoutes from './routes/acercaDeRoutes';
+import educacionRoutes from './routes/educacionRoutes';
+import experienciaRoutes from './routes/experienciaRoutes';
+import personaRoutes from './routes/personaRoutes';
+import proyectoRoutes from './routes/proyectoRoutes';
+import skillsRoutes from './routes/skillsRoutes';
 
 // Server
 class Server {
@@ -39,9 +44,15 @@ class Server {
     }
 
     routes(): void{
-        this.app.use('/auth', authRoutes);
-        this.app.use('/acercade', acercaDeRoutes);
+        this.app.use('/api/auth', authRoutes);
+        this.app.use('/api/persona', personaRoutes);
+        this.app.use('/api/acercade', acercaDeRoutes);
+        this.app.use('/api/educacion', educacionRoutes);
+        this.app.use('/api/experiencia', experienciaRoutes);
+        this.app.use('/api/proyecto', proyectoRoutes);
+        this.app.use('/api/skills', skillsRoutes);
     }
+    
 
     start(): void{
         this.app.listen(this.app.get('port'), ()=> {
@@ -51,7 +62,7 @@ class Server {
 
     async startDB(){
         try {
-            await sequelize.sync({force: false, alter: false});
+            await sequelize.sync({force: false, alter: true});
             console.log('Conección establecida correctamente.');
         } catch(error) {
             console.error('Imposible conectarse a DB:', error);            

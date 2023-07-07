@@ -1,5 +1,6 @@
 import { Router } from "express";
-//agregar controlador
+import tokenService from "../services/tokenService";
+import personaController from "../controllers/personaController";
 
 class PersonaRoutes {
 
@@ -10,12 +11,12 @@ class PersonaRoutes {
     }
 
     config(): void{
-        this.router.get('/', ) // personaController.get
-        this.router.post('/', ) // personaController.save
-        this.router.put('/:id', ) // personaController.update
-        this.router.delete('/:id', ) // personaController.delete
+        this.router.get('/', tokenService.verifyToken, personaController.obtenerPersona);       
+        this.router.post('/', tokenService.verifyToken, personaController.crearPersona);        
+        this.router.put('/:id', tokenService.verifyToken, personaController.updatePersona); 
+        this.router.delete('/:id', tokenService.verifyToken, personaController.deletePersona); 
     }
 }
 
 const personaRoutes = new PersonaRoutes();
-export default personaRoutes;
+export default personaRoutes.router;
