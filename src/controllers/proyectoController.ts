@@ -106,8 +106,6 @@ class ProyectoController{
             res.status(200).json({msg: 'Proyecto laboral eliminada correctamente'})
         }
     }
-    
-
 }
 
 const proyectoController = new ProyectoController();

@@ -1,5 +1,7 @@
 import { Router } from "express";
-//agregar controlador
+import tokenService from "../services/tokenService";
+import skillController from "../controllers/skillsController";
+
 class SkillsRoutes {
 
     public router: Router = Router();
@@ -9,10 +11,11 @@ class SkillsRoutes {
     }
 
     config(): void{
-        this.router.get('/', ) // skillsController.get
-        this.router.post('/', ) // skillsController.save
-        this.router.put('/:id', ) // skillsController.update
-        this.router.delete('/:id', ) // skillsController.delete
+        this.router.get('/', tokenService.verifyToken, skillController.obtenerUnaSkill);
+        this.router.get('/', tokenService.verifyToken, skillController.obtenerSkills);
+        this.router.post('/', tokenService.verifyToken, skillController.crearSkills); 
+        this.router.put('/', tokenService.verifyToken, skillController.actualizarSkills); 
+        this.router.delete('/', tokenService.verifyToken, skillController.borrarSkills);
     }
 }
 
