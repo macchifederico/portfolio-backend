@@ -4,8 +4,7 @@ import { Proyecto } from '../models/Proyecto';
 class ProyectoController{
 
     public async obtenerProyectos(req: Request, res: Response){
-        const {id_persona} = req.body;
-
+        const id_persona = req.userId;
         const proyectos = await Proyecto.findAll({
             where:{
                 id_persona: id_persona
@@ -19,12 +18,13 @@ class ProyectoController{
     }
 
     public async getUnProyecto(req: Request, res: Response){
-        const {id_persona, id_proyecto} = req.body;
-
+        const id_persona = req.userId;
+        const {id} = req.params;
+        
         const proyecto = await Proyecto.findOne({
             where:{
                 id_persona: id_persona,
-                id: id_proyecto
+                id: id
             }
         })
 
@@ -35,52 +35,48 @@ class ProyectoController{
     }
 
     public async crearProyecto(req: Request, res: Response){
-        const {id_persona, empresa, cargo, fecha_inicio, fecha_fin, en_proceso} = req.body;
+        const id_persona = req.userId;
+        const {nombreProyecto, descrProyecto, urlProyecto} = req.body;        
 
         if(!id_persona){
             res.status(400).json({msg: 'El id persona es obligatorio'})
         }else{
-            const proyecto = await Proyecto.create({
+            await Proyecto.create({
                 id_persona: id_persona,
-                empresa: empresa,
-                cargo: cargo,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
-                en_proceso: en_proceso
+                nombreProyecto: nombreProyecto,
+                descrProyecto: descrProyecto,
+                urlProyecto: urlProyecto
             })
             res.status(200).json({
-                msg: 'Proyecto creada correctamente',
-                proyecto: proyecto
+                msg: 'Proyecto creada correctamente'
             })
         }
     }
 
     public async actualizarProyecto(req: Request, res: Response){
-        const {id_proyecto, id_persona, empresa, cargo, fecha_inicio, fecha_fin,  en_proceso} = req.body;
+        const {id, id_persona, nombreProyecto, descrProyecto, urlProyecto} = req.body;
 
         const proyectoByIdPersona = await Proyecto.findOne({
             where:{
                 id_persona: id_persona,
-                id: id_proyecto
+                id: id
             }
         })
 
         if(!proyectoByIdPersona){
-            res.status(400).json({msg: 'No existe experiencia laboral con ese id'})
+            res.status(400).json({msg: 'No existe proyecto con ese id'})
         }else{
             await Proyecto.update({
-                empresa: empresa,
-                cargo: cargo,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
-                en_proceso: en_proceso
+                nombreProyecto: nombreProyecto,
+                descrProyecto: descrProyecto,
+                urlProyecto: urlProyecto
             },{
                 where: {
                     id_persona: id_persona,
-                    id: id_proyecto
+                    id: id
                 }
             })
-            res.status(200).json({msg: 'Proyecto laboral actualizada correctamente'})
+            res.status(200).json({msg: 'Proyecto laboral actualizado correctamente'})
         }
     }
 

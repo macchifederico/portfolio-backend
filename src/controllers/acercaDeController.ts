@@ -1,26 +1,32 @@
 import { Request, Response } from "express";
 import { AcercaDe } from "../models/AcercaDe";
+import { Persona } from "../models/Persona";
 
 class AcercaDeController {
 
     public async getAcerca(req: Request, res: Response){
-        const { id_persona } = req.body;
-        
+        const id_persona = req.userId;        
         try {
             const acercaDe = await AcercaDe.findOne({
                 where: {
                     id_persona: id_persona
                 }
             });
-            return res.status(200).json(acercaDe); 
+            if(acercaDe){
+                return res.status(200).json(acercaDe);
+            }             
         } catch (error) {
-            console.log(error);
+            res.status(500).send({
+                msg: 'Error al obtener acerca de'
+            });
         }
                
     }
 
     public async create(req: Request, res: Response){
-        const { id_persona, presentProf } = req.body;
+        const { id_persona } = req.body;
+        const { presentProf } = req.body.acercade;
+
         try {
             await AcercaDe.create({
                 id_persona: id_persona,
@@ -37,17 +43,18 @@ class AcercaDeController {
     }
 
     public async update(req: Request, res: Response){
-        const { id_persona, presentProf } = req.body;
-
-        const usuarioExistente = await AcercaDe.findOne({
+        const { id_persona } = req.body;
+        const { presentProf } = req.body.acercade;
+        
+        const usuarioExistente = await Persona.findOne({
             where: {
-                id_persona: id_persona
+                id: id_persona
             }
         })
         
         if (!usuarioExistente) {
             return res.status(404).json({
-                text: 'AcercaDe no encontrado'+` para id_persona nro ${id_persona}`,
+                msg: 'Usuario no encontrado'+` para id nro ${id_persona}`,
             });
         }else{
             try {
@@ -59,10 +66,12 @@ class AcercaDeController {
                     }
                 });
                 return res.status(200).json({
-                    text: 'AcercaDe actualizado'+` para id_persona nro ${id_persona}`,
+                    msg: `AcercaDe actualizado con exito`
                 });
             }catch (error: any) {
-                console.log(error);
+                res.status(400).json({
+                    msg: 'Error al actualizar acerca de'
+                })
             } 
         }
     }

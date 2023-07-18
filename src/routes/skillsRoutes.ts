@@ -11,11 +11,11 @@ class SkillsRoutes {
     }
 
     config(): void{
-        this.router.get('/', tokenService.verifyToken, skillController.obtenerUnaSkill);
+        this.router.get('/:id', tokenService.verifyToken, skillController.obtenerUnaSkill);
         this.router.get('/', tokenService.verifyToken, skillController.obtenerSkills);
         this.router.post('/', tokenService.verifyToken, skillController.crearSkills); 
-        this.router.put('/', tokenService.verifyToken, skillController.actualizarSkills); 
-        this.router.delete('/', tokenService.verifyToken, skillController.borrarSkills);
+        this.router.put('/:id', tokenService.verifyToken, skillController.actualizarSkills); 
+        this.router.delete('/:id', tokenService.verifyToken, skillController.borrarSkills);
     }
 }
 

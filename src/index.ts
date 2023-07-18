@@ -62,7 +62,7 @@ class Server {
 
     async startDB(){
         try {
-            await sequelize.sync({force: false, alter: true});
+            await sequelize.sync({force: false, alter: false});
             console.log('Conección establecida correctamente.');
         } catch(error) {
             console.error('Imposible conectarse a DB:', error);            

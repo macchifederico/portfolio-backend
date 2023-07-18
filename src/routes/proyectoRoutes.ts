@@ -13,7 +13,7 @@ class ProyectoRoutes {
     config(): void{
         this.router.get('/', tokenService.verifyToken, proyectoController.obtenerProyectos);
         this.router.post('/', tokenService.verifyToken, proyectoController.crearProyecto);
-        this.router.post('/', tokenService.verifyToken, proyectoController.getUnProyecto);
+        this.router.get('/:id', tokenService.verifyToken, proyectoController.getUnProyecto);
         this.router.put('/', tokenService.verifyToken, proyectoController.actualizarProyecto);
         this.router.delete('/', tokenService.verifyToken, proyectoController.deleteProyecto);
     }

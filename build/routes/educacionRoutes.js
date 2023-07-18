@@ -16,7 +16,7 @@ class EducacionRoutes {
         this.router.get('/:id', tokenService_1.default.verifyToken, educacionController_1.default.getUnaEducacion);
         this.router.post('/', tokenService_1.default.verifyToken, educacionController_1.default.createEducacion);
         this.router.put('/', tokenService_1.default.verifyToken, educacionController_1.default.updateEducacion);
-        this.router.delete('/', tokenService_1.default.verifyToken, educacionController_1.default.deleteEducacion);
+        this.router.delete('/:id', tokenService_1.default.verifyToken, educacionController_1.default.deleteEducacion);
     }
 }
 const educacionRoutes = new EducacionRoutes();

@@ -18,7 +18,7 @@ class TokenService {
         if(token === 'null'){
                 return res.status(401).send('Request no autorizado');
         }
-
+        
         const payload = jwt.verify(token, process.env.SECRET_KEY!) as JwtPayload;
         
         req.userId = payload._id;

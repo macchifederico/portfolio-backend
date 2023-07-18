@@ -6,16 +6,16 @@ class EducacionController {
     constructor() {
     }
     async getAllEducacionPersona(req, res) {
-        const { id_persona } = req.body;
-        if (!id_persona) {
-            return res.status(400).json({ text: 'No existe la persona en nuestra base' });
+        const id_persona = req.userId;
+        const educaciones = await Educacion_1.Educacion.findAll({
+            where: {
+                id_persona: id_persona
+            }
+        });
+        if (educaciones.length === 0) {
+            return res.status(400).json({ msg: 'No existen educaciones para esta persona' });
         }
         else {
-            const educaciones = await Educacion_1.Educacion.findAll({
-                where: {
-                    id_persona: id_persona
-                }
-            });
             return res.status(200).json({
                 text: 'Educacion obtenida',
                 educaciones: educaciones
@@ -23,7 +23,8 @@ class EducacionController {
         }
     }
     async getUnaEducacion(req, res) {
-        const { id_persona, id_educacion } = req.body;
+        const id_persona = req.userId;
+        const id_educacion = req.params.id;
         const educacion = await Educacion_1.Educacion.findOne({
             where: {
                 id_persona: id_persona,
@@ -36,35 +37,36 @@ class EducacionController {
         });
     }
     async createEducacion(req, res) {
-        //cambiar por modelo??
-        const { id_persona, titulo, institucion, fecha_inicio, fecha_fin, en_proceso } = req.body;
+        const id_persona = req.userId;
+        const { titulo, institucion, fecha_inicio, fecha_fin, en_proceso } = req.body;
         if (!req.body) {
-            return res.status(400).json({ text: 'No existe la persona en nuestra base' });
+            return res.status(400).json({ msg: 'No existe la persona en nuestra base' });
         }
         else {
             await Educacion_1.Educacion.create({
                 id_persona: id_persona,
                 titulo: titulo,
                 institucion: institucion,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
+                fecha_inicio: Date.parse(fecha_inicio),
+                fecha_fin: Date.parse(fecha_fin),
                 en_proceso: en_proceso
             });
             res.status(200).json({
-                text: 'Educacion creada exitosamente'
+                msg: 'Educacion creada exitosamente'
             });
         }
     }
     async updateEducacion(req, res) {
-        const { id_persona, id_educacion, titulo, institucion, fecha_inicio, fecha_fin, en_proceso } = req.body;
+        const id_persona = req.userId;
+        const { id, titulo, institucion, fecha_inicio, fecha_fin, en_proceso } = req.body;
         const educacion_actualizar = await Educacion_1.Educacion.findOne({
             where: {
                 id_persona: id_persona,
-                id: id_educacion
+                id: id
             }
         });
         if (!educacion_actualizar) {
-            return res.status(400).json({ text: 'No existe en nuestra base, no se pudo actualizar' });
+            return res.status(400).json({ msg: 'No existe en nuestra base, no se pudo actualizar' });
         }
         else {
             await Educacion_1.Educacion.update({
@@ -76,16 +78,17 @@ class EducacionController {
             }, {
                 where: {
                     id_persona: id_persona,
-                    id: id_educacion
+                    id: id
                 }
             });
             res.status(200).json({
-                text: 'Educacion actualizada exitosamente'
+                msg: 'Educacion actualizada exitosamente'
             });
         }
     }
     async deleteEducacion(req, res) {
-        const { id_persona, id_educacion } = req.body;
+        const id_persona = req.userId;
+        const { id } = req.params;
         if (!req.body) {
             res.status(400).json({ text: 'No se pudo realizar la operación' });
         }
@@ -94,7 +97,7 @@ class EducacionController {
                 await Educacion_1.Educacion.destroy({
                     where: {
                         id_persona: id_persona,
-                        id: id_educacion
+                        id: id
                     }
                 });
                 res.status(200).json({
@@ -103,7 +106,7 @@ class EducacionController {
             }
             catch (error) {
                 res.status(400).json({
-                    txt: error
+                    msg: error
                 });
             }
         }

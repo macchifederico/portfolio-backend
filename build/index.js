@@ -53,7 +53,7 @@ class Server {
     }
     async startDB() {
         try {
-            await database_1.default.sync({ force: false, alter: true });
+            await database_1.default.sync({ force: false, alter: false });
             console.log('Conección establecida correctamente.');
         }
         catch (error) {

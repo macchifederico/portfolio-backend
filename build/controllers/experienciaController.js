@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Experiencia_1 = require("../models/Experiencia");
 class ExperienciaController {
     async getExperienciaLaboral(req, res) {
-        const { id_persona } = req.body;
+        const id_persona = req.userId;
         const expLaborales = await Experiencia_1.Experiencia.findAll({
             where: {
                 id_persona: id_persona
@@ -15,31 +15,31 @@ class ExperienciaController {
         });
     }
     async getUnaExpereriencia(req, res) {
-        const { id_persona, id_experiencia } = req.body;
-        const proyecto = await Experiencia_1.Experiencia.findOne({
+        const id_persona = req.userId;
+        const id_experiencia = req.params.id;
+        const experiencia = await Experiencia_1.Experiencia.findOne({
             where: {
                 id_persona: id_persona,
                 id: id_experiencia
             }
         });
         res.status(200).json({
-            msg: 'Proyecto obtenida correctamente',
-            proyectos: proyecto
+            msg: 'Experiencia laboral obtenida correctamente',
+            experiencia: experiencia
         });
     }
     async createExperienciaLaboral(req, res) {
-        const { id_persona, empresa, cargo, fecha_inicio, fecha_fin, en_proceso } = req.body;
+        const id_persona = req.userId;
+        const { nombreE, empresaE, descripcionE } = req.body;
         if (!id_persona) {
             res.status(400).json({ msg: 'El id persona es obligatorio' });
         }
         else {
             const expLaborales = await Experiencia_1.Experiencia.create({
                 id_persona: id_persona,
-                empresa: empresa,
-                cargo: cargo,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
-                en_proceso: en_proceso
+                nombreE: nombreE,
+                empresaE: empresaE,
+                descripcionE: descripcionE
             });
             res.status(200).json({
                 msg: 'Experiencia laboral creada correctamente',
@@ -48,11 +48,11 @@ class ExperienciaController {
         }
     }
     async updateExperienciaLaboral(req, res) {
-        const { id_experiencia, id_persona, empresa, cargo, fecha_inicio, fecha_fin, en_proceso } = req.body;
+        const { id, id_persona, empresaE, nombreE, descripcionE, en_proceso, fecha_inicio, fecha_fin } = req.body;
         const expExistenteByIdPersona = await Experiencia_1.Experiencia.findOne({
             where: {
                 id_persona: id_persona,
-                id: id_experiencia
+                id: id
             }
         });
         if (!expExistenteByIdPersona) {
@@ -60,22 +60,26 @@ class ExperienciaController {
         }
         else {
             await Experiencia_1.Experiencia.update({
-                empresa: empresa,
-                cargo: cargo,
+                empresa: empresaE,
+                nombreE: nombreE,
+                empresaE: empresaE,
+                descripcionE: descripcionE,
+                en_proceso: en_proceso,
                 fecha_inicio: fecha_inicio,
                 fecha_fin: fecha_fin,
-                en_proceso: en_proceso
             }, {
                 where: {
                     id_persona: id_persona,
-                    id: id_experiencia
+                    id: id
                 }
             });
             res.status(200).json({ msg: 'Experiencia laboral actualizada correctamente' });
         }
     }
     async deleteExperienciaLaboral(req, res) {
-        const { id_experiencia, id_persona } = req.body;
+        const id_persona = req.userId;
+        const id_experiencia = req.params.id;
+        console.log(id_persona, id_experiencia);
         const experienciaExistenteByIdPersona = await Experiencia_1.Experiencia.findOne({
             where: {
                 id_persona: id_persona,

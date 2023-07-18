@@ -7,10 +7,13 @@ export const Skills = sequelize.define('skills', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: DataTypes.INTEGER,
+    },
     tecnologia: {
         type: DataTypes.STRING,
     },
-    porcentajes: {
+    porcentaje: {
         type: DataTypes.INTEGER,
     }
 },{

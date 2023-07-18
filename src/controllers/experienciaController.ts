@@ -4,8 +4,8 @@ import { Experiencia } from '../models/Experiencia';
 class ExperienciaController{
 
     public async getExperienciaLaboral(req: Request, res: Response){
-        const {id_persona} = req.body;
-
+        const id_persona = req.userId;
+           
         const expLaborales = await Experiencia.findAll({
             where:{
                 id_persona: id_persona
@@ -19,33 +19,33 @@ class ExperienciaController{
     }
 
     public async getUnaExpereriencia(req: Request, res: Response){
-        const {id_persona, id_experiencia} = req.body;
-
-        const proyecto = await Experiencia.findOne({
+        const id_persona = req.userId;
+        const id_experiencia = req.params.id;        
+        
+        const experiencia = await Experiencia.findOne({
             where:{
                 id_persona: id_persona,
                 id: id_experiencia
             }
         })
         res.status(200).json({
-            msg: 'Proyecto obtenida correctamente',
-            proyectos: proyecto
+            msg: 'Experiencia laboral obtenida correctamente',
+            experiencia: experiencia
         })
     }
 
     public async createExperienciaLaboral(req: Request, res: Response){
-        const {id_persona, empresa, cargo, fecha_inicio, fecha_fin, en_proceso} = req.body;
+        const id_persona = req.userId;
+        const {nombreE, empresaE, descripcionE} = req.body;
 
         if(!id_persona){
             res.status(400).json({msg: 'El id persona es obligatorio'})
         }else{
             const expLaborales = await Experiencia.create({
                 id_persona: id_persona,
-                empresa: empresa,
-                cargo: cargo,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
-                en_proceso: en_proceso
+                nombreE: nombreE,
+                empresaE: empresaE,
+                descripcionE: descripcionE
             })
             res.status(200).json({
                 msg: 'Experiencia laboral creada correctamente',
@@ -55,29 +55,32 @@ class ExperienciaController{
     }
     
 
-    public async updateExperienciaLaboral(req: Request, res: Response){
-        const {id_experiencia, id_persona, empresa, cargo, fecha_inicio, fecha_fin,  en_proceso} = req.body;
-
+    public async updateExperienciaLaboral(req: Request, res: Response){        
+        const {id, id_persona, empresaE, nombreE, descripcionE, en_proceso, fecha_inicio, fecha_fin } = req.body;
+        
         const expExistenteByIdPersona = await Experiencia.findOne({
             where:{
                 id_persona: id_persona,
-                id: id_experiencia
+                id: id
             }
         })
-
+        
         if(!expExistenteByIdPersona){
             res.status(400).json({msg: 'No existe experiencia laboral con ese id'})
         }else{
             await Experiencia.update({
-                empresa: empresa,
-                cargo: cargo,
+                empresa: empresaE,
+                nombreE: nombreE,
+                empresaE: empresaE,
+                descripcionE: descripcionE,
+                en_proceso: en_proceso,
                 fecha_inicio: fecha_inicio,
                 fecha_fin: fecha_fin,
-                en_proceso: en_proceso
+                
             },{
                 where: {
                     id_persona: id_persona,
-                    id: id_experiencia
+                    id: id
                 }
             })
             res.status(200).json({msg: 'Experiencia laboral actualizada correctamente'})
@@ -85,8 +88,11 @@ class ExperienciaController{
     }
 
     public async deleteExperienciaLaboral(req: Request, res: Response){
-        const {id_experiencia, id_persona} = req.body;
-
+        const id_persona = req.userId;
+        const id_experiencia = req.params.id;
+        
+        console.log(id_persona, id_experiencia);
+            
         const experienciaExistenteByIdPersona = await Experiencia.findOne({
             where:{
                 id_persona: id_persona,

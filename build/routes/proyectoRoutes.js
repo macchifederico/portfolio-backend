@@ -14,7 +14,7 @@ class ProyectoRoutes {
     config() {
         this.router.get('/', tokenService_1.default.verifyToken, proyectoController_1.default.obtenerProyectos);
         this.router.post('/', tokenService_1.default.verifyToken, proyectoController_1.default.crearProyecto);
-        this.router.post('/', tokenService_1.default.verifyToken, proyectoController_1.default.getUnProyecto);
+        this.router.get('/:id', tokenService_1.default.verifyToken, proyectoController_1.default.getUnProyecto);
         this.router.put('/', tokenService_1.default.verifyToken, proyectoController_1.default.actualizarProyecto);
         this.router.delete('/', tokenService_1.default.verifyToken, proyectoController_1.default.deleteProyecto);
     }

@@ -12,11 +12,11 @@ class SkillsRoutes {
         this.config();
     }
     config() {
-        this.router.get('/', tokenService_1.default.verifyToken, skillsController_1.default.obtenerUnaSkill);
+        this.router.get('/:id', tokenService_1.default.verifyToken, skillsController_1.default.obtenerUnaSkill);
         this.router.get('/', tokenService_1.default.verifyToken, skillsController_1.default.obtenerSkills);
         this.router.post('/', tokenService_1.default.verifyToken, skillsController_1.default.crearSkills);
-        this.router.put('/', tokenService_1.default.verifyToken, skillsController_1.default.actualizarSkills);
-        this.router.delete('/', tokenService_1.default.verifyToken, skillsController_1.default.borrarSkills);
+        this.router.put('/:id', tokenService_1.default.verifyToken, skillsController_1.default.actualizarSkills);
+        this.router.delete('/:id', tokenService_1.default.verifyToken, skillsController_1.default.borrarSkills);
     }
 }
 const skillsRoutes = new SkillsRoutes();

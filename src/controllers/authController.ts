@@ -23,8 +23,8 @@ class AuthController {
 
 
     public async login(req: Request, res: Response, next: any){
-        const { email, password } = req.body; 
-
+        const { email, password } = req.body;         
+        
         if(!email || !password){
             res.status(500).send({
                 text: "Es necesario usuario y password para loguearse"
@@ -36,7 +36,7 @@ class AuthController {
                     password: password
             }
         });        
-
+        
             if(result?.dataValues){                
                 const token = jwt.sign({_id: result.dataValues.id}, process.env.SECRET_KEY!);                
                 

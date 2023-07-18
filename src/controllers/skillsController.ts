@@ -4,8 +4,7 @@ import { Skills } from "../models/Skills";
 class SkillController{
 
     public async obtenerSkills(req: Request, res: Response){
-        const {id_persona} = req.body;
-
+        const id_persona = req.userId;
         const skills = await Skills.findAll({
             where:{
                 id_persona: id_persona
@@ -13,17 +12,18 @@ class SkillController{
         })
         res.status(200).json({
             msg: 'Skills obtenida correctamente',
-            Skillss: Skills
+            skills: skills
         })
     }
 
-    public async obtenerUnaSkill(req: Request, res: Response){
-        const {id_persona, id_skills} = req.body;
-
+    public async obtenerUnaSkill(req: Request, res: Response){        
+        const id_persona = req.userId;
+        const {id} = req.params;        
+        
         const skills = await Skills.findOne({
             where:{
                 id_persona: id_persona,
-                id: id_skills
+                id: id
             }
         })
 
@@ -34,18 +34,16 @@ class SkillController{
     }
 
     public async crearSkills(req: Request, res: Response){
-        const {id_persona, empresa, cargo, fecha_inicio, fecha_fin, en_proceso} = req.body;
-
+        const id_persona = req.userId;
+        const {tecnologia, porcentaje} = req.body;    
+        
         if(!id_persona){
             res.status(400).json({msg: 'El id persona es obligatorio'})
         }else{
             await Skills.create({
                 id_persona: id_persona,
-                empresa: empresa,
-                cargo: cargo,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
-                en_proceso: en_proceso
+                tecnologia: tecnologia,
+                porcentaje: porcentaje
             })
             res.status(200).json({
                 msg: 'Skills creada correctamente'
@@ -54,12 +52,13 @@ class SkillController{
     }
 
     public async actualizarSkills(req: Request, res: Response){
-        const {id_skills, id_persona, empresa, cargo, fecha_inicio, fecha_fin,  en_proceso} = req.body;
-
+        const id_persona = req.userId;
+        const {tecnologia, porcentaje} = req.body;
+        const { id } = req.params;
         const skillsByIdPersona = await Skills.findOne({
             where:{
                 id_persona: id_persona,
-                id: id_skills
+                id: id
             }
         })
 
@@ -67,15 +66,12 @@ class SkillController{
             res.status(400).json({msg: 'No existe experiencia laboral con ese id'})
         }else{
             await Skills.update({
-                empresa: empresa,
-                cargo: cargo,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
-                en_proceso: en_proceso
+               tecnologia: tecnologia,
+               porcentaje: porcentaje
             },{
                 where: {
                     id_persona: id_persona,
-                    id: id_skills
+                    id: id
                 }
             })
             res.status(200).json({msg: 'Skills laboral actualizada correctamente'})
@@ -83,12 +79,13 @@ class SkillController{
     }
 
     public async borrarSkills(req: Request, res: Response){
-        const {id_skills, id_persona} = req.body;
+        const id_persona = req.userId;
+        const { id } = req.params;
 
         const skillsByIdPersona = await Skills.findOne({
             where:{
                 id_persona: id_persona,
-                id: id_skills
+                id: id
             }
         })
 
@@ -98,7 +95,7 @@ class SkillController{
             await Skills.destroy({
                 where: {
                     id_persona: id_persona,
-                    id: id_skills
+                    id: id
                 }
             })
             res.status(200).json({msg: 'Skills laboral eliminada correctamente'})

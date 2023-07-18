@@ -13,6 +13,7 @@ class ExperienciaRoutes {
     }
     config() {
         this.router.get('/', tokenService_1.default.verifyToken, experienciaController_1.default.getExperienciaLaboral);
+        this.router.get('/:id', tokenService_1.default.verifyToken, experienciaController_1.default.getUnaExpereriencia);
         this.router.post('/', tokenService_1.default.verifyToken, experienciaController_1.default.createExperienciaLaboral);
         this.router.put('/:id', tokenService_1.default.verifyToken, experienciaController_1.default.updateExperienciaLaboral);
         this.router.delete('/:id', tokenService_1.default.verifyToken, experienciaController_1.default.deleteExperienciaLaboral);
