@@ -26,7 +26,8 @@ require("./models/Skills");
 require('dotenv').config();
 // Routes
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
-const acercadeRoutes_1 = __importDefault(require("./routes/acercadeRoutes"));
+const acercaDeRoutes_1 = __importDefault(require("./routes/acercaDeRoutes"));
+// Server
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -42,7 +43,7 @@ class Server {
     }
     routes() {
         this.app.use('/auth', authRoutes_1.default);
-        this.app.use('/', acercadeRoutes_1.default);
+        this.app.use('/', acercaDeRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
