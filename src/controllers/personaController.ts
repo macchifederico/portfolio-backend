@@ -91,11 +91,11 @@ class PersonaController {
                     }
                 })
                     res.status(200).json({
-                        msg: 'Persona eliminada'
+                        text: 'Persona eliminada'
                     })
                }catch(error){
                 res.status(400).json({
-                    msg: error
+                    text: error
                 })
                }
         }

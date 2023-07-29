@@ -13,7 +13,8 @@ class EducacionController{
         const educaciones = await Educacion.findAll({
             where: {
                 id_persona : id_persona
-            }
+            },
+            order:[['fechaInicio', 'ASC']]
         })
 
         if(educaciones.length  === 0){
@@ -44,8 +45,8 @@ class EducacionController{
 
     public async createEducacion(req: Request, res: Response){
         const id_persona = req.userId;
-        const {titulo, institucion, fecha_inicio, fecha_fin, en_proceso} = req.body;
-        
+        const {titulo, institucion, fechaInicio, fechaFin, en_proceso} = req.body;        
+
         if(!req.body){
             return res.status(400).json({msg: 'No existe la persona en nuestra base'})
         }else{
@@ -53,8 +54,8 @@ class EducacionController{
                 id_persona: id_persona,
                 titulo: titulo,
                 institucion: institucion,
-                fecha_inicio: Date.parse(fecha_inicio),
-                fecha_fin: Date.parse(fecha_fin),
+                fechaInicio: fechaInicio,
+                fechaFin: fechaFin,
                 en_proceso: en_proceso
             }) 
 
@@ -66,7 +67,7 @@ class EducacionController{
 
     public async updateEducacion(req: Request, res: Response){
         const id_persona = req.userId;
-        const {id, titulo, institucion, fecha_inicio, fecha_fin, en_proceso} = req.body;
+        const {id, titulo, institucion, fechaInicio, fechaFin, en_proceso} = req.body;
 
         const educacion_actualizar = await Educacion.findOne({
             where: {
@@ -81,8 +82,8 @@ class EducacionController{
             await Educacion.update({
                 titulo: titulo,
                 institucion: institucion,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
+                fechaInicio: fechaInicio,
+                fechaFin: fechaFin,
                 en_proceso: en_proceso
             },{
                 where: {
@@ -112,7 +113,7 @@ class EducacionController{
                     }
                 })
                     res.status(200).json({
-                        text: 'Educacion eliminada'
+                        text: 'Educacion eliminada con éxito.'
                     
                     })
                }catch(error){

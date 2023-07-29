@@ -10,7 +10,7 @@ class ExperienciaController {
             }
         });
         res.status(200).json({
-            msg: 'Experiencia laboral obtenida correctamente',
+            text: 'Experiencia laboral obtenida correctamente',
             expLaborales: expLaborales
         });
     }
@@ -24,7 +24,7 @@ class ExperienciaController {
             }
         });
         res.status(200).json({
-            msg: 'Experiencia laboral obtenida correctamente',
+            text: 'Experiencia laboral obtenida correctamente',
             experiencia: experiencia
         });
     }
@@ -32,7 +32,7 @@ class ExperienciaController {
         const id_persona = req.userId;
         const { nombreE, empresaE, descripcionE } = req.body;
         if (!id_persona) {
-            res.status(400).json({ msg: 'El id persona es obligatorio' });
+            res.status(400).json({ text: 'El id persona es obligatorio' });
         }
         else {
             const expLaborales = await Experiencia_1.Experiencia.create({
@@ -42,7 +42,7 @@ class ExperienciaController {
                 descripcionE: descripcionE
             });
             res.status(200).json({
-                msg: 'Experiencia laboral creada correctamente',
+                text: 'Experiencia laboral creada correctamente',
                 expLaborales: expLaborales
             });
         }
@@ -56,7 +56,7 @@ class ExperienciaController {
             }
         });
         if (!expExistenteByIdPersona) {
-            res.status(400).json({ msg: 'No existe experiencia laboral con ese id' });
+            res.status(400).json({ text: 'No existe experiencia laboral con ese id' });
         }
         else {
             await Experiencia_1.Experiencia.update({
@@ -73,7 +73,7 @@ class ExperienciaController {
                     id: id
                 }
             });
-            res.status(200).json({ msg: 'Experiencia laboral actualizada correctamente' });
+            res.status(200).json({ text: 'Experiencia laboral actualizada correctamente' });
         }
     }
     async deleteExperienciaLaboral(req, res) {
@@ -87,7 +87,7 @@ class ExperienciaController {
             }
         });
         if (!experienciaExistenteByIdPersona) {
-            res.status(400).json({ msg: 'No existe experiencia laboral con ese id' });
+            res.status(400).json({ text: 'No existe experiencia laboral con ese id' });
         }
         else {
             await Experiencia_1.Experiencia.destroy({
@@ -96,7 +96,7 @@ class ExperienciaController {
                     id: id_experiencia
                 }
             });
-            res.status(200).json({ msg: 'Experiencia laboral eliminada correctamente' });
+            res.status(200).json({ text: 'Experiencia laboral eliminada correctamente' });
         }
     }
 }

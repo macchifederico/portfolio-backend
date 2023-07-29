@@ -11,7 +11,7 @@ class SkillController{
             }
         })
         res.status(200).json({
-            msg: 'Skills obtenida correctamente',
+            text: 'Skills obtenida correctamente',
             skills: skills
         })
     }
@@ -28,7 +28,7 @@ class SkillController{
         })
 
         res.status(200).json({
-            msg: 'Skills obtenida correctamente',
+            text: 'Skills obtenida correctamente',
             skills: skills
         })
     }
@@ -38,7 +38,7 @@ class SkillController{
         const {tecnologia, porcentaje} = req.body;    
         
         if(!id_persona){
-            res.status(400).json({msg: 'El id persona es obligatorio'})
+            res.status(400).json({text: 'El id persona es obligatorio'})
         }else{
             await Skills.create({
                 id_persona: id_persona,
@@ -63,7 +63,7 @@ class SkillController{
         })
 
         if(!skillsByIdPersona){
-            res.status(400).json({msg: 'No existe experiencia laboral con ese id'})
+            res.status(400).json({text: 'No existe experiencia laboral con ese id'})
         }else{
             await Skills.update({
                tecnologia: tecnologia,
@@ -74,7 +74,7 @@ class SkillController{
                     id: id
                 }
             })
-            res.status(200).json({msg: 'Skills laboral actualizada correctamente'})
+            res.status(200).json({text: 'Skills laboral actualizada correctamente'})
         }
     }
 
@@ -90,7 +90,7 @@ class SkillController{
         })
 
         if(!skillsByIdPersona){
-            res.status(400).json({msg: 'No existe Skills con ese id'})
+            res.status(400).json({text: 'No existe Skills con ese id'})
         }else{
             await Skills.destroy({
                 where: {
@@ -98,7 +98,7 @@ class SkillController{
                     id: id
                 }
             })
-            res.status(200).json({msg: 'Skills laboral eliminada correctamente'})
+            res.status(200).json({text: 'Skills laboral eliminada correctamente'})
         }
     }
 }

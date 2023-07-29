@@ -10,7 +10,7 @@ class ProyectoController {
             }
         });
         res.status(200).json({
-            msg: 'Proyecto obtenida correctamente',
+            text: 'Proyecto obtenida correctamente',
             proyectos: proyectos
         });
     }
@@ -24,7 +24,7 @@ class ProyectoController {
             }
         });
         res.status(200).json({
-            msg: 'Proyecto obtenida correctamente',
+            text: 'Proyecto obtenida correctamente',
             proyectos: proyecto
         });
     }
@@ -32,7 +32,7 @@ class ProyectoController {
         const id_persona = req.userId;
         const { nombreProyecto, descrProyecto, urlProyecto } = req.body;
         if (!id_persona) {
-            res.status(400).json({ msg: 'El id persona es obligatorio' });
+            res.status(400).json({ text: 'El id persona es obligatorio' });
         }
         else {
             await Proyecto_1.Proyecto.create({
@@ -42,7 +42,7 @@ class ProyectoController {
                 urlProyecto: urlProyecto
             });
             res.status(200).json({
-                msg: 'Proyecto creada correctamente'
+                text: 'Proyecto creada correctamente'
             });
         }
     }
@@ -55,7 +55,7 @@ class ProyectoController {
             }
         });
         if (!proyectoByIdPersona) {
-            res.status(400).json({ msg: 'No existe proyecto con ese id' });
+            res.status(400).json({ text: 'No existe proyecto con ese id' });
         }
         else {
             await Proyecto_1.Proyecto.update({
@@ -68,7 +68,7 @@ class ProyectoController {
                     id: id
                 }
             });
-            res.status(200).json({ msg: 'Proyecto laboral actualizado correctamente' });
+            res.status(200).json({ text: 'Proyecto laboral actualizado correctamente' });
         }
     }
     async deleteProyecto(req, res) {
@@ -80,7 +80,7 @@ class ProyectoController {
             }
         });
         if (!proyectoByIdPersona) {
-            res.status(400).json({ msg: 'No existe proyecto con ese id' });
+            res.status(400).json({ text: 'No existe proyecto con ese id' });
         }
         else {
             await Proyecto_1.Proyecto.destroy({
@@ -89,7 +89,7 @@ class ProyectoController {
                     id: id_proyecto
                 }
             });
-            res.status(200).json({ msg: 'Proyecto laboral eliminada correctamente' });
+            res.status(200).json({ text: 'Proyecto laboral eliminada correctamente' });
         }
     }
 }

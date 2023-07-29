@@ -18,7 +18,7 @@ class AcercaDeController {
         }
         catch (error) {
             res.status(500).send({
-                msg: 'Error al obtener acerca de'
+                text: 'Error al obtener acerca de'
             });
         }
     }
@@ -48,7 +48,7 @@ class AcercaDeController {
         });
         if (!usuarioExistente) {
             return res.status(404).json({
-                msg: 'Usuario no encontrado' + ` para id nro ${id_persona}`,
+                text: 'Usuario no encontrado' + ` para id nro ${id_persona}`,
             });
         }
         else {
@@ -61,12 +61,12 @@ class AcercaDeController {
                     }
                 });
                 return res.status(200).json({
-                    msg: `AcercaDe actualizado con exito`
+                    text: `AcercaDe actualizado con exito`
                 });
             }
             catch (error) {
                 res.status(400).json({
-                    msg: 'Error al actualizar acerca de'
+                    text: 'Error al actualizar acerca de'
                 });
             }
         }

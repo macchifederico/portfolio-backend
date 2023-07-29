@@ -19,6 +19,7 @@ export const Educacion = sequelize.define('educacion', {
     },
     fechaInicio: {
         type: DataTypes.DATE,
+        
     },
     fechaFin: {
         type: DataTypes.DATE,
