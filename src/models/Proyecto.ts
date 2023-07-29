@@ -7,6 +7,9 @@ export const Proyecto = sequelize.define('proyecto', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: DataTypes.INTEGER,
+    },
     nombreProyecto: {
         type: DataTypes.STRING,
     },

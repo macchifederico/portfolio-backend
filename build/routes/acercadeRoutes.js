@@ -12,10 +12,10 @@ class AcercaDeRoutes {
         this.config();
     }
     config() {
-        this.router.get('/:id', tokenService_1.default.verifyToken, acercaDeController_1.default.getAcerca);
-        this.router.post('/', tokenService_1.default.verifyToken, acercaDeController_1.default.save);
-        this.router.put('/:id', tokenService_1.default.verifyToken, acercaDeController_1.default.update);
-        this.router.delete('/:id', tokenService_1.default.verifyToken, acercaDeController_1.default.delete);
+        this.router.get('/', tokenService_1.default.verifyToken, acercaDeController_1.default.getAcerca);
+        this.router.post('/', tokenService_1.default.verifyToken, acercaDeController_1.default.create);
+        this.router.put('/', tokenService_1.default.verifyToken, acercaDeController_1.default.update);
+        this.router.delete('/', tokenService_1.default.verifyToken, acercaDeController_1.default.delete);
     }
 }
 const acercaDeRoutes = new AcercaDeRoutes();

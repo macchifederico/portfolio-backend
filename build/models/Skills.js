@@ -12,10 +12,13 @@ exports.Skills = database_1.default.define('skills', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: sequelize_1.DataTypes.INTEGER,
+    },
     tecnologia: {
         type: sequelize_1.DataTypes.STRING,
     },
-    porcentajes: {
+    porcentaje: {
         type: sequelize_1.DataTypes.INTEGER,
     }
 }, {

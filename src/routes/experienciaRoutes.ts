@@ -1,5 +1,6 @@
 import { Router } from "express";
-//agregar controlador
+import tokenService from "../services/tokenService";
+import experienciaController from "../controllers/experienciaController";
 
 class ExperienciaRoutes {
 
@@ -10,12 +11,13 @@ class ExperienciaRoutes {
     }
 
     config(): void{
-        this.router.get('/', ) // experienciaController.get
-        this.router.post('/', ) // experienciaController.save
-        this.router.put('/:id', ) // experienciaController.update
-        this.router.delete('/:id', ) // experienciaController.delete
+        this.router.get('/', tokenService.verifyToken,  experienciaController.getExperienciaLaboral);
+        this.router.get('/:id', tokenService.verifyToken,  experienciaController.getUnaExpereriencia);
+        this.router.post('/', tokenService.verifyToken, experienciaController.createExperienciaLaboral); 
+        this.router.put('/:id', tokenService.verifyToken, experienciaController.updateExperienciaLaboral);
+        this.router.delete('/:id', tokenService.verifyToken, experienciaController.deleteExperienciaLaboral);
     }
 }
 
 const experienciaRoutes = new ExperienciaRoutes();
-export default experienciaRoutes;
+export default experienciaRoutes.router;

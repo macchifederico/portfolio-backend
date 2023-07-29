@@ -7,6 +7,9 @@ export const AcercaDe = sequelize.define('acercade', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_persona: {
+        type: DataTypes.INTEGER,
+    },
     presentProf: {
         type: DataTypes.STRING
     }
